@@ -256,15 +256,15 @@ abstract class Model extends IlluminateModel {
      * @param  string  $relation
      * @return \Vinelab\NeoEloquent\Eloquent\Relations\BelongsToMany
      */
-    public function belongsToMany($related, $table = null, $foreignKey = null, $ownerKey = null, $relation = null)
+    public function belongsToMany($related, $table = null, $foreignPivotKey = null, $relatedPivotKey = null, $parentKey = null, $relatedKey = null, $relation = null)
     {
         // To escape the error:
         // PHP Strict standards:  Declaration of Vinelab\NeoEloquent\Eloquent\Model::belongsToMany() should be
         //      compatible with Illuminate\Database\Eloquent\Model::belongsToMany()
         // We'll just map them in with the variables we want.
         $type     = $table;
-        $key      = $foreignKey;
-        $relation = $ownerKey;
+        $key      = $relatedPivotKey;
+        $relation = $foreignPivotKey;
         // If no relation name was given, we will use this debug backtrace to extract
         // the calling method's name and use that as the relationship name as most
         // of the time this will be what we desire to use for the relationships.
@@ -293,7 +293,7 @@ abstract class Model extends IlluminateModel {
         // appropriate query constraint and entirely manages the hydrations.
         $query = $instance->newQuery();
 
-        return new BelongsToMany($query, $this, $type, $key, $relation);
+        return new BelongsToMany($query, $this, $type, $key, $parentKey, $relatedKey, $relation);
     }
 
     /**

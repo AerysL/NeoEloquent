@@ -37,7 +37,7 @@ class BelongsToMany extends HasOneOrMany {
      */
     protected $edgeDirection = 'in';
 
-    public function __construct(Builder $query, Model $parent, $type, $key, $relation)
+    public function __construct(Builder $query, Model $parent, $type, $key = null, $parentKey = null, $relatedKey = null, $relation = null)
     {
         parent::__construct($query, $parent, $type, $key, $relation);
 
